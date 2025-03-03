@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parchís en RA</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer"></script>
+    <style>
+        body { margin: 0; text-align: center; font-family: Arial, sans-serif; }
+        #dadoBtn { position: absolute; top: 10px; right: 10px; padding: 10px 20px; font-size: 18px; background: #ffcc00; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <!-- 📌 Visor de Realidad Aumentada -->
+    <model-viewer 
+        src="https://victorcastillainfova.github.io/MODELOAR2/KIA-2.glb"
+        ar 
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls 
+        environment-image="neutral"
+        shadow-intensity="1"
+        exposure="1"
+        style="width: 100vw; height: 80vh;"
+        id="parchis">
+
+        <!-- 🎲 Dado -->
+        <model-viewer 
+            id="dado"
+            src="https://victorcastillainfova.github.io/MODELOAR2/dado.glb"
+            slot="hotspot-dado"
+            data-position="0 1 0"
+            data-normal="0 1 0">
+        </model-viewer>
+
+        <!-- 🔴 Fichas (4 jugadores) -->
+        <model-viewer id="ficha_roja" src="https://victorcastillainfova.github.io/MODELOAR2/ficha_roja.glb" slot="hotspot-roja" data-position="-1 1 0"></model-viewer>
+        <model-viewer id="ficha_azul" src="https://victorcastillainfova.github.io/MODELOAR2/ficha_azul.glb" slot="hotspot-azul" data-position="1 1 0"></model-viewer>
+        <model-viewer id="ficha_verde" src="https://victorcastillainfova.github.io/MODELOAR2/ficha_verde.glb" slot="hotspot-verde" data-position="-1 1 1"></model-viewer>
+        <model-viewer id="ficha_amarilla" src="https://victorcastillainfova.github.io/MODELOAR2/ficha_amarilla.glb" slot="hotspot-amarilla" data-position="1 1 1"></model-viewer>
+
+    </model-viewer>
+
+    <!-- 🎲 Botón para lanzar el dado -->
+    <button id="dadoBtn" onclick="lanzarDado()">🎲 Tirar dado</button>
+
+    <script>
+        let turno = 0;
+        let posiciones = {
+            roja: 0, azul: 0, verde: 0, amarilla: 0
+        };
+
+        const casillas = [
+            {x: -1, y: 1, z: 0}, {x: 0, y: 1, z: 0}, {x: 1, y: 1, z: 0}, 
+            {x: 1, y: 1, z: 1}, {x: 0, y: 1, z: 1}, {x: -1, y: 1, z: 1}
+        ]; // Ajusta según el tablero real
+
+        function lanzarDado() {
+            const resultado = Math.floor(Math.random() * 6) + 1;
+            alert("Has sacado un " + resultado);
+
+            let jugador = ["roja", "azul", "verde", "amarilla"][turno];
+            posiciones[jugador] += resultado;
+
+            if (posiciones[jugador] >= casillas.length) {
+                posiciones[jugador] = casillas.length - 1;
+            }
+
+            document.getElementById("ficha_" + jugador).setAttribute("data-position", 
+                ${casillas[posiciones[jugador]].x} ${casillas[posiciones[jugador]].y} ${casillas[posiciones[jugador]].z});
+
+            turno = (turno + 1) % 4; // Cambia de jugador
+        }
+    </script>
+
+</body>
+</html>
