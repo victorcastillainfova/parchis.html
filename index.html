@@ -12,7 +12,6 @@
 </head>
 <body>
 
-    <!-- 📌 Visor de Realidad Aumentada -->
     <model-viewer 
         src="https://victorcastillainfova.github.io/MODELOAR2/KIA-2.glb"
         ar 
@@ -23,25 +22,9 @@
         exposure="1"
         style="width: 100vw; height: 80vh;"
         id="parchis">
-
-        <!-- 🎲 Dado -->
-        <model-viewer 
-            id="dado"
-            src="https://victorcastillainfova.github.io/MODELOAR2/dado.glb"
-            slot="hotspot-dado"
-            data-position="0 1 0"
-            data-normal="0 1 0">
-        </model-viewer>
-
-        <!-- 🔴 Fichas (4 jugadores) -->
-        <model-viewer id="ficha_roja" src="https://victorcastillainfova.github.io/MODELOAR2/ficha_roja.glb" slot="hotspot-roja" data-position="-1 1 0"></model-viewer>
-        <model-viewer id="ficha_azul" src="https://victorcastillainfova.github.io/MODELOAR2/ficha_azul.glb" slot="hotspot-azul" data-position="1 1 0"></model-viewer>
-        <model-viewer id="ficha_verde" src="https://victorcastillainfova.github.io/MODELOAR2/ficha_verde.glb" slot="hotspot-verde" data-position="-1 1 1"></model-viewer>
-        <model-viewer id="ficha_amarilla" src="https://victorcastillainfova.github.io/MODELOAR2/ficha_amarilla.glb" slot="hotspot-amarilla" data-position="1 1 1"></model-viewer>
-
+        <!-- Fichas y dado van aquí -->
     </model-viewer>
 
-    <!-- 🎲 Botón para lanzar el dado -->
     <button id="dadoBtn" onclick="lanzarDado()">🎲 Tirar dado</button>
 
     <script>
